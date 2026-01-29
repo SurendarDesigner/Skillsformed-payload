@@ -15,6 +15,12 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
 
   // Check if URL already has http/https protocol
   if (url.startsWith('http://') || url.startsWith('https://')) {
+    // Sanitize localhost URLs from database (e.g. migration artifacts)
+    if (url.includes('localhost:3000')) {
+      const relativeUrl = url.replace('http://localhost:3000', '').replace('https://localhost:3000', '')
+      const baseUrl = getClientSideURL()
+      return cacheTag ? `${baseUrl}${relativeUrl}?${cacheTag}` : `${baseUrl}${relativeUrl}`
+    }
     return cacheTag ? `${url}?${cacheTag}` : url
   }
 
