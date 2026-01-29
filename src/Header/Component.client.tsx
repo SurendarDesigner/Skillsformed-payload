@@ -1,8 +1,4 @@
 
-const sanitizeUrl = (url: string | null | undefined) => {
-  if (!url) return ''
-  return url.replace('http://localhost:3000', '')
-}
 
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
@@ -12,6 +8,11 @@ import { CaretDown, List, X } from '@phosphor-icons/react'
 import type { Header } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { CMSLink } from '@/components/Link'
+
+const sanitizeUrl = (url: string | null | undefined) => {
+  if (!url) return ''
+  return url.replace('http://localhost:3000', '')
+}
 
 interface HeaderClientProps {
   data: Header
