@@ -18,6 +18,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [dropdownStyle, setDropdownStyle] = useState<React.CSSProperties>({})
+  const [imgError, setImgError] = useState(false)
 
   const navBodyRef = useRef<HTMLDivElement>(null)
   const dropdownWrapperRef = useRef<HTMLDivElement>(null)
@@ -110,11 +111,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       <div className="nav-body" ref={navBodyRef}>
         <Link href="/" className="navbar-logo">
           <div style={{ width: '224px' }}>
-            {data.logo && typeof data.logo === 'object' && 'url' in data.logo && (
-              <img src={data.logo.url as string} alt="SkillsforMed Logo" style={{ width: '100%', height: 'auto', display: 'block' }} />
+            {data.logo && typeof data.logo === 'object' && 'url' in data.logo && !imgError && (
+              <img
+                src={data.logo.url as string}
+                alt="SkillsforMed Logo"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+                onError={() => setImgError(true)}
+              />
             )}
-            {(!data.logo || (typeof data.logo !== 'object')) && (
-              <img src="/media/logo@2x.jpg" alt="SkillsforMed Logo" style={{ width: '100%', height: 'auto', display: 'block' }} />
+            {(!data.logo || typeof data.logo !== 'object' || imgError) && (
+              <img
+                src="/media/logo@2x.jpg"
+                alt="SkillsforMed Logo"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
             )}
           </div>
         </Link>
