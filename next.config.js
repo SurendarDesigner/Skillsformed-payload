@@ -19,6 +19,16 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        protocol: 'https',
+        hostname: 'public.blob.vercel-storage.com',
+        port: '',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000',
+      },
     ],
   },
   webpack: (webpackConfig) => {

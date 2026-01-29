@@ -1,4 +1,8 @@
-'use client'
+
+const sanitizeUrl = (url: string | null | undefined) => {
+  if (!url) return ''
+  return url.replace('http://localhost:3000', '')
+}
 
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
@@ -113,7 +117,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           <div style={{ width: '224px' }}>
             {data.logo && typeof data.logo === 'object' && 'url' in data.logo && !imgError && (
               <img
-                src={data.logo.url as string}
+                src={sanitizeUrl(data.logo.url as string)}
                 alt="SkillsforMed Logo"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
                 onError={() => setImgError(true)}
