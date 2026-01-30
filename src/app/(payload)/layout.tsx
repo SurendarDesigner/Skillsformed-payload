@@ -1,34 +1,19 @@
-/* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
-/* DO NOT MODIFY IT BECAUSE IT COULD BE REWRITTEN AT ANY TIME. */
-import config from '@payload-config'
-import '@payloadcms/next/css'
-import type { ServerFunctionClient } from 'payload'
-import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import React from 'react'
-
-import { importMap } from './admin/importMap.js'
 import './custom.scss'
 
-type Args = {
-  children: React.ReactNode
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <title>Debug Layout</title>
+      </head>
+      <body style={{ backgroundColor: 'yellow', color: 'black', fontSize: '30px', padding: '50px' }}>
+        <h1>DEBUG MODE: HELLO WORLD</h1>
+        <p>If you see this, Next.js is working.</p>
+        <div style={{ border: '5px solid red', padding: '20px' }}>
+          {children}
+        </div>
+      </body>
+    </html>
+  )
 }
-
-const serverFunction: ServerFunctionClient = async function (args) {
-  'use server'
-  return handleServerFunctions({
-    ...args,
-    config,
-    importMap,
-  })
-}
-
-const Layout = ({ children }: Args) => (
-  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
-    <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 99999, background: 'red', color: 'white', padding: '20px', fontSize: '24px' }}>
-      ADMIN LAYOUT MOUNTED - v1
-    </div>
-    {children}
-  </RootLayout>
-)
-
-export default Layout
