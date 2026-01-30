@@ -15,7 +15,6 @@ type Args = {
 
 const serverFunction: ServerFunctionClient = async function (args) {
   'use server'
-  console.log('PAYLOAD LAYOUT: Ignoring serverFunction for debug...')
   return handleServerFunctions({
     ...args,
     config,
@@ -25,9 +24,6 @@ const serverFunction: ServerFunctionClient = async function (args) {
 
 const Layout = ({ children }: Args) => (
   <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
-    <div style={{ position: 'fixed', top: 0, left: 0, zIndex: 99999, background: 'red', color: 'white', padding: '20px', fontSize: '24px' }}>
-      ADMIN LAYOUT MOUNTED - v1
-    </div>
     {children}
   </RootLayout>
 )
