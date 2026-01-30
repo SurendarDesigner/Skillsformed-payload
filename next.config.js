@@ -5,7 +5,8 @@ import redirects from './redirects.js'
 const NEXT_PUBLIC_SERVER_URL =
   process.env.NEXT_PUBLIC_SERVER_URL ||
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined) ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ||
+  (process.env.NODE_ENV === 'production' ? 'https://skillsformed-payload.vercel.app' : 'http://localhost:3000')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
