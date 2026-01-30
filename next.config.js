@@ -43,6 +43,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  env: {
+    NEXT_PUBLIC_SERVER_URL: NEXT_PUBLIC_SERVER_URL,
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
