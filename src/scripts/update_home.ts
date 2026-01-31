@@ -38,7 +38,7 @@ const updateHome = async () => {
                         name: 'placeholder-banner.webp',
                         mimetype: 'image/webp',
                         size: fs.statSync(seedImagePath).size,
-                    },
+                    } as any,
                 })
                 mediaId = newMedia.id
                 console.log(`Created new media ID: ${mediaId}`)
