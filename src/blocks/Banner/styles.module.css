@@ -208,7 +208,7 @@
     border-radius: var(--border-radius-xl);
     background: none;
     margin-top: 64px;
-    overflow: hidden; /* Ensure content is clipped to radius */
+    overflow: visible; /* User requested removal of overflow: hidden */
   }
 
   /* Hide Tabs */
@@ -224,9 +224,11 @@
     }
   
     .carouselSlides {
-      height: 85vh; /* Tall container for mobile */
-      max-height: 700px;
-      border-radius: var(--border-radius-xl); /* Apply to slides container too */
+      min-height: 80vh; /* Allow it to grow */
+      height: auto;
+      max-height: none; /* Remove max-height constraint */
+      border-radius: var(--border-radius-xl);
+      overflow: visible; /* Per user request: no hidden overflow */
     }
   
     .carouselSlide {
@@ -308,6 +310,10 @@
   }
   
   @media (max-width: 600px) {
+
+    .container {
+  margin: 24px auto 0 auto;
+}
     
     .slideButton {
       max-width: 320px;
@@ -320,10 +326,7 @@
       height: 80vh;
       border-radius: var(--border-radius-lg);
     }
-    
-    .carouselContainer {
-      border-radius: var(--border-radius-lg);
-    }
+  
 
     .carouselSlide {
       border-radius: var(--border-radius-lg);
