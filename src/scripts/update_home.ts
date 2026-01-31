@@ -72,7 +72,7 @@ const updateHome = async () => {
 
         // 3. Construct Banner Block with valid Media ID
         const bannerBlock = {
-            blockType: 'banner',
+            blockType: 'banner' as const,
             slides: [
                 {
                     tabLabel: 'Elevate',
