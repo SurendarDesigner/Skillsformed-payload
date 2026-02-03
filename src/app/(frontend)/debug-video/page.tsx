@@ -10,7 +10,7 @@ export default function DebugVideoPage() {
   return (
     <div style={{ padding: '50px', backgroundColor: 'white' }}>
       <h1>Debug Video Player</h1>
-      <p>If this video doesn't load, something blocks YouTube globally (network/browser).</p>
+      <p>If this video doesn&apos;t load, something blocks YouTube globally (network/browser).</p>
       
       <div style={{ border: '2px solid red', width: '640px', height: '360px', position: 'relative' }}>
         <ReactPlayer 

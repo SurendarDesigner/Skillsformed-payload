@@ -1,5 +1,5 @@
 'use client'
-import type { FormFieldBlock } from '@payloadcms/plugin-form-builder/types'
+
 import type { Form as FormType } from '@/payload-types'
 
 import { useRouter } from 'next/navigation'

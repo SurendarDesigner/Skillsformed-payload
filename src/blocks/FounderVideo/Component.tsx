@@ -1,7 +1,7 @@
 'use client'
 
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import type { FounderVideoBlock as FounderVideoBlockProps, Media, Form as FormType } from '@/payload-types'
 import { FormBlock } from '@/blocks/Form/Component'
 import styles from './styles.module.css'

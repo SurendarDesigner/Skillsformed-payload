@@ -1,7 +1,7 @@
 import React from 'react'
 import type { CompanyMetricsBlock as CompanyMetricsBlockProps, Media } from '@/payload-types'
 import styles from './styles.module.css'
-import Image from 'next/image'
+
 
 type Props = {
   className?: string

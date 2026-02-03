@@ -3,10 +3,10 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import type { BannerBlock as BannerBlockProps, Media, Page } from '@/payload-types'
+import type { BannerBlock as BannerBlockProps, Media } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import styles from './styles.module.css'
-import Image from 'next/image'
+
 
 type Props = {
   className?: string
