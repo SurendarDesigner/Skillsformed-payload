@@ -8,6 +8,8 @@ import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { BannerBlock } from '@/blocks/Banner/Component'
+import { CompanyMetricsBlock } from '@/blocks/CompanyMetrics/Component'
+import { FounderVideoBlock } from '@/blocks/FounderVideo/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -16,6 +18,8 @@ const blockComponents = {
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
   banner: BannerBlock,
+  companyMetrics: CompanyMetricsBlock,
+  founderVideo: FounderVideoBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -36,7 +40,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div className={blockType === 'banner' ? '' : 'my-16'} key={index}>
+                <div className={blockType === 'banner' ? '' : 'my-16'} key={block.id || index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

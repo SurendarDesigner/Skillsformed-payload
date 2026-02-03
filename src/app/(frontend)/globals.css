@@ -705,10 +705,10 @@ html[data-theme='light'] {
         top: 0;
         left: 0;
         width: 100vw;
-        height: 100vh;
+        height: calc(100vh - 80px);
         background: white;
         margin-top: 80px;
-        padding: 16px;
+        padding: 16px 16px 64px 16px;
 
         /* NO TRANSITIONS, NO TRANSFORMS */
         z-index: 1001;
@@ -784,6 +784,9 @@ html[data-theme='light'] {
         width: 100%;
         padding: 16px;
         font-size: var(--font-size-base);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 

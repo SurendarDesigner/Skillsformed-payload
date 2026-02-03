@@ -1,0 +1,272 @@
+/* Main Section */
+.section {
+    background: #1A3C6A;
+    display: flex;
+    flex-direction: row;
+    gap: 96px;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-3xl);
+    padding: 64px;
+    margin: 48px auto; /* Add margin to separate from other blocks */
+    max-width: 1400px; /* Consistent with other blocks */
+    width: 95%;
+    box-sizing: border-box;
+}
+
+/* Video Thumbnail Area */
+.videoWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--border-radius-2xl);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000; /* Fallback */
+    flex-shrink: 0;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+}
+
+.playIcon {
+    position: relative;
+    z-index: 10;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.playIcon:hover {
+    transform: scale(1.1);
+}
+
+/* Right Side Content */
+.contentMain {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 560px; /* Limit width for nice typography */
+}
+
+.quoteWrapper {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    margin-bottom: 32px;
+}
+
+.quoteIcon {
+    width: 62px;
+    height: auto;
+}
+
+.quoteText {
+    font-size: var(--font-size-2xl);
+    font-weight: 300;
+    color: #fff;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.authorInfoMain {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.authorName {
+    font-size: var(--font-size-xl);
+    color: #91CCFF;
+    margin: 0;
+    font-weight: 400;
+}
+
+.authorRole {
+    font-size: var(--font-size-base);
+    color: #8A9FBC;
+    margin: 0;
+    max-width: 380px;
+}
+
+.authorDesignation {
+    margin: 0;
+    font-size: var(--font-size-base);
+    color: #fff;
+    font-weight: 300;
+}
+
+.authorDesignation i, 
+.authorDesignation em {
+    font-style: italic;
+}
+
+.button {
+    margin-top: 48px;
+    /* Reuse button-secondary styles implicitly or explicitly */
+    background-color: var(--color-white);
+    color: var(--color-gray-900);
+    padding: 16px 24px;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: var(--border-radius-md);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button:hover {
+    background-color: var(--color-gray-200);
+}
+
+/* --- VIDEO MODAL --- */
+.modalOverlay {
+    position: fixed; 
+    z-index: 10000; /* High z-index */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+.modalContent {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    background: transparent;
+}
+
+.closeButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10001; /* Ensure above video */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    color: white;
+    border: none;
+    border-radius: 50%; /* Circle shape */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(4px); /* Optional: adds a nice blur effect */
+}
+
+.closeButton:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.closeButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+.playerWrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    width: 100%;
+    background-color: #000;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    box-shadow: 0 0 24px rgba(0,0,0,0.5);
+}
+
+.reactPlayer {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* --- FORM MODAL --- */
+.formModalContent {
+    background-color: white;
+    padding: 40px;
+    border-radius: var(--border-radius-md);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.formCloseButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: var(--color-gray-600);
+    /* ... other close button styles */
+}
+
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .section {
+        flex-direction: column;
+        gap: 48px;
+        padding: 48px 24px;
+    }
+
+    .videoWrapper {
+        max-width: 100%;
+    }
+
+    .contentMain {
+        align-items: center;
+        text-align: center;
+    }
+
+    .quoteText {
+        font-size: var(--font-size-xl);
+    }
+    
+    .button {
+        align-self: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .playIcon {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .section {
+        padding: 32px 16px;
+        border-radius: var(--border-radius-xl);
+    }
+    
+    .quoteWrapper {
+        align-items: center; 
+    }
+}

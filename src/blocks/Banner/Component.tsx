@@ -102,98 +102,96 @@ export const BannerBlock: React.FC<Props> = (props) => {
   if (!safeSlides.length) return null
 
   return (
-    <div className={styles.container} ref={containerRef}>
-      <div className={styles.carouselContainer}>
-        
-        {/* Tabs (Desktop Only) */}
-        <div className={styles.carouselTabs}>
-          {safeSlides.map((slide, index) => (
-            <button
+    <div className={styles.carouselContainer} ref={containerRef}>
+      
+      {/* Tabs (Desktop Only) */}
+      <div className={styles.carouselTabs}>
+        {safeSlides.map((slide, index) => (
+          <button
+            key={index}
+            className={`${styles.tabButton} ${index === currentSlideIndex ? styles.active : ''}`}
+            onClick={() => handleTabClick(index)}
+          >
+            {slide.tabLabel}
+          </button>
+        ))}
+      </div>
+
+      {/* Arrows (Mobile Only) */}
+      <button className={`${styles.carouselArrow} ${styles.arrowPrev}`} onClick={handlePrev}>
+        &#8249;
+      </button>
+      <button className={`${styles.carouselArrow} ${styles.arrowNext}`} onClick={handleNext}>
+        &#8250;
+      </button>
+
+      <div className={styles.carouselSlides}>
+        {safeSlides.map((slide, index) => {
+           const desktopImg = slide.desktopImage as Media
+           const mobileImg = slide.mobileImage as Media
+           const desktopUrl = desktopImg?.url || ''
+           const mobileUrl = mobileImg?.url || ''
+
+          return (
+            <div
               key={index}
-              className={`${styles.tabButton} ${index === currentSlideIndex ? styles.active : ''}`}
-              onClick={() => handleTabClick(index)}
+              ref={(el) => { slidesRef.current[index] = el }}
+              className={`${styles.carouselSlide} ${index === currentSlideIndex ? styles.active : ''}`}
+              style={{
+                 // Apply background image for desktop only via inline style or rely on class toggling?
+                 // The CSS uses classes .slide-1 etc for bg images. We need dynamic ones.
+                 // We'll use inline styles for the background image, but we need to ensure it's responsive (handled by CSS query mostly)
+                 backgroundImage: `url(${desktopUrl})`
+              }}
             >
-              {slide.tabLabel}
-            </button>
-          ))}
-        </div>
+              {/* Mobile Image Tag (Src can be different from desktop bg) */}
+              {mobileUrl && (
+                  <img 
+                      src={mobileUrl} 
+                      alt={mobileImg?.alt || slide.headline} 
+                      className={styles.mobileImage} 
+                  />
+              )}
 
-        {/* Arrows (Mobile Only) */}
-        <button className={`${styles.carouselArrow} ${styles.arrowPrev}`} onClick={handlePrev}>
-          &#8249;
-        </button>
-        <button className={`${styles.carouselArrow} ${styles.arrowNext}`} onClick={handleNext}>
-          &#8250;
-        </button>
-
-        <div className={styles.carouselSlides}>
-          {safeSlides.map((slide, index) => {
-             const desktopImg = slide.desktopImage as Media
-             const mobileImg = slide.mobileImage as Media
-             const desktopUrl = desktopImg?.url || ''
-             const mobileUrl = mobileImg?.url || ''
-
-            return (
-              <div
-                key={index}
-                ref={(el) => { slidesRef.current[index] = el }}
-                className={`${styles.carouselSlide} ${index === currentSlideIndex ? styles.active : ''}`}
-                style={{
-                   // Apply background image for desktop only via inline style or rely on class toggling?
-                   // The CSS uses classes .slide-1 etc for bg images. We need dynamic ones.
-                   // We'll use inline styles for the background image, but we need to ensure it's responsive (handled by CSS query mostly)
-                   backgroundImage: `url(${desktopUrl})`
-                }}
-              >
-                {/* Mobile Image Tag (Src can be different from desktop bg) */}
-                {mobileUrl && (
-                    <img 
-                        src={mobileUrl} 
-                        alt={mobileImg?.alt || slide.headline} 
-                        className={styles.mobileImage} 
-                    />
-                )}
-
-                <div className={styles.slideContent}>
-                  <h1 className={styles.slideHeadline}>{slide.headline}</h1>
-                  <p className={styles.slideDescription}>{slide.description}</p>
-                  
-                    {/* Link handling */}
-                    {(slide.link || slide.customLink) && (
-                        <div className={styles.buttonWrapper}>
-                             {/* If using Payload CMSLink component or simple anchor depends on props */}
-                             {slide.link ? (
-                                 <CMSLink
-                                    className={styles.slideButton}
-                                    type="reference"
-                                    reference={{
-                                        relationTo: 'pages',
-                                        value: slide.link?.value,
-                                    }}
-                                    label={slide.buttonText || 'Learn Now'}
-                                 />
-                             ) : (
-                                <a href={slide.customLink || '#'} className={styles.slideButton}>
-                                    {slide.buttonText || 'Learn Now'}
-                                </a>
-                             )}
-                        </div>
-                    )}
-                </div>
+              <div className={styles.slideContent}>
+                <h1 className={styles.slideHeadline}>{slide.headline}</h1>
+                <p className={styles.slideDescription}>{slide.description}</p>
+                
+                  {/* Link handling */}
+                  {(slide.link || slide.customLink) && (
+                      <div className={styles.buttonWrapper}>
+                           {/* If using Payload CMSLink component or simple anchor depends on props */}
+                           {slide.link ? (
+                               <CMSLink
+                                  className={styles.slideButton}
+                                  type="reference"
+                                  reference={{
+                                      relationTo: 'pages',
+                                      value: slide.link?.value,
+                                  }}
+                                  label={slide.buttonText || 'Learn Now'}
+                               />
+                           ) : (
+                              <a href={slide.customLink || '#'} className={styles.slideButton}>
+                                  {slide.buttonText || 'Learn Now'}
+                              </a>
+                           )}
+                      </div>
+                  )}
               </div>
-            )
-          })}
-        </div>
+            </div>
+          )
+        })}
+      </div>
 
-        <div className={styles.carouselDots}>
-          {safeSlides.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.dotButton} ${index === currentSlideIndex ? styles.active : ''}`}
-              onClick={() => handleTabClick(index)}
-            ></button>
-          ))}
-        </div>
+      <div className={styles.carouselDots}>
+        {safeSlides.map((_, index) => (
+          <button
+            key={index}
+            className={`${styles.dotButton} ${index === currentSlideIndex ? styles.active : ''}`}
+            onClick={() => handleTabClick(index)}
+          ></button>
+        ))}
       </div>
     </div>
   )

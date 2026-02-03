@@ -55,6 +55,7 @@
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-hook-form": "7.45.4",
+    "react-player": "^3.4.0",
     "sharp": "0.34.2",
     "tailwind-merge": "^3.4.0"
   },
