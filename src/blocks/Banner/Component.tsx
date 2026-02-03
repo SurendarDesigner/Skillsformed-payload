@@ -35,7 +35,7 @@ export const BannerBlock: React.FC<Props> = (props) => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [safeSlides.length]) // Re-run if slides length changes
+  }, [safeSlides.length]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useGSAP(() => {
     // Initial setup - hide all except first

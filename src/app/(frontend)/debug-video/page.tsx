@@ -4,7 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 
 // Standard import logic
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false }) as any
 
 export default function DebugVideoPage() {
   return (

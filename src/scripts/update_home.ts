@@ -121,12 +121,7 @@ const updateHome = async () => {
             collection: 'pages',
             id: homePage.id,
             data: {
-                hero: {
-                    type: 'none',
-                    richText: {}, // Empty rich text just in case
-                    media: null,
-                    links: [],
-                },
+
                 layout: [bannerBlock],
             },
         })

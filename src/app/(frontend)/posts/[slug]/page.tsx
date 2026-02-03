@@ -10,7 +10,8 @@ import RichText from '@/components/RichText'
 
 import type { Post } from '@/payload-types'
 
-import { PostHero } from '@/heros/PostHero'
+import Image from 'next/image'
+
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
@@ -60,7 +61,22 @@ export default async function Post({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <PostHero post={post} />
+      <div className="relative w-full mb-8">
+        {post.heroImage && typeof post.heroImage !== 'number' && 'url' in post.heroImage && (
+             <div className="relative aspect-video w-full overflow-hidden max-w-[80rem] mx-auto rounded-lg">
+               <Image 
+                 src={post.heroImage.url || ''} 
+                 alt={post.heroImage.alt || post.title}
+                 fill
+                 className="object-cover"
+                 priority
+               />
+             </div>
+        )}
+        <div className="container mt-8 text-center">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4">{post.title}</h1>
+        </div>
+      </div>
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">
