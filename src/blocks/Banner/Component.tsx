@@ -17,6 +17,7 @@ export const BannerBlock: React.FC<Props> = (props) => {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const slidesRef = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
+  const slidesContainerRef = useRef<HTMLDivElement>(null)
   
   // Clean up slides prop to ensure it's an array
   const safeSlides = slides || []
@@ -83,6 +84,36 @@ export const BannerBlock: React.FC<Props> = (props) => {
 
   }, { scope: containerRef, dependencies: [currentSlideIndex] })
 
+  // Dynamic height adjustment for mobile
+  useGSAP(() => {
+    const updateHeight = () => {
+      const activeSlide = slidesRef.current[currentSlideIndex]
+      const slidesContainer = slidesContainerRef.current
+
+      if (activeSlide && slidesContainer) {
+        if (window.innerWidth <= 992) {
+          // Mobile: animate height to fit active slide
+          gsap.to(slidesContainer, {
+            height: activeSlide.offsetHeight,
+            duration: 0.3,
+            ease: 'power2.out',
+          })
+        } else {
+          // Desktop: clear inline height so CSS takes over (520px)
+          slidesContainer.style.height = ''
+        }
+      }
+    }
+
+    // Run on slide change
+    updateHeight()
+
+    // Run on resize
+    const handleResize = () => updateHeight()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, { dependencies: [currentSlideIndex, safeSlides] })
+
 
   const handleTabClick = (index: number) => {
     setCurrentSlideIndex(index)
@@ -125,7 +156,7 @@ export const BannerBlock: React.FC<Props> = (props) => {
         &#8250;
       </button>
 
-      <div className={styles.carouselSlides}>
+      <div className={styles.carouselSlides} ref={slidesContainerRef}>
         {safeSlides.map((slide, index) => {
            const desktopImg = slide.desktopImage as Media
            const mobileImg = slide.mobileImage as Media

@@ -164,7 +164,7 @@
   display: none;
   position: absolute;
   /* Position relative to the container */
-  top: 25%;
+  top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.7);
   color: var(--color-secondary-blue);
@@ -214,12 +214,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      /* Static positioning relative to 300px image */
+      top: 150px; 
+      transform: translateY(-50%);
     }
   
     .carouselSlides {
-      min-height: 80vh; /* Allow it to grow */
-      height: auto;
-      max-height: none; /* Remove max-height constraint */
+      /* min-height: 80vh; Removed to allow dynamic sizing */
+      /* height: auto; Managed by JS */
+      /* max-height: none; */
       border-radius: var(--border-radius-xl);
       overflow: visible; /* Per user request: no hidden overflow */
     }
@@ -243,7 +246,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: auto; /* Let content dictate height */
       z-index: 10;
     }
   
@@ -251,7 +254,7 @@
     .mobileImage {
       display: block;
       width: 100%;
-      height: 45%;
+      height: 300px; /* Fixed height for stability */
       flex-shrink: 0;
       object-fit: cover;
       border-radius: var(--border-radius-3xl);
@@ -281,7 +284,7 @@
   
     /* Re-position dots for Mobile: Below the image */
     .carouselDots {
-      top: 45%;
+      top: 300px; /* Aligned with bottom of image */
       bottom: auto;
       left: 50%;
       transform: translateX(-50%);
@@ -305,7 +308,7 @@
   @media (max-width: 600px) {
 
     .carouselContainer {
-  margin: 24px auto 0 auto;
+  margin: 56px auto 0 auto;
 }
     
     .slideButton {
@@ -315,8 +318,8 @@
     }
   
     .carouselSlides {
-      max-height: 900px;
-      height: 80vh;
+      max-height: none;
+      /* height: 80vh; Removed */
       border-radius: var(--border-radius-lg);
     }
   
@@ -329,9 +332,9 @@
       border-radius: var(--border-radius-lg);
     }
     
-    .carouselDots {
-        top: 45%;
-    }
+    /* .carouselDots {
+        top: 300px;
+    } */
   
     .slideHeadline {
       font-size: var(--font-size-xl);

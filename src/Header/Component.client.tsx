@@ -5,6 +5,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { CaretDown, List, X } from '@phosphor-icons/react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 
 import type { Header } from '@/payload-types'
 import { useHeaderTheme } from '@/providers/HeaderTheme'
@@ -27,6 +29,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const [imgError, setImgError] = useState(false)
 
   const navBodyRef = useRef<HTMLDivElement>(null)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
   const dropdownWrapperRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const pathname = usePathname()
@@ -111,6 +114,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   const toggleMobileAccordion = (id: string) => {
     setMobileExpanded(prev => prev === id ? null : id)
   }
+
+  useGSAP(() => {
+    if (isMobileMenuOpen) {
+      gsap.fromTo('.nav-item, .nav-buttons',
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'power2.out' }
+      )
+    }
+  }, { scope: mobileMenuRef, dependencies: [isMobileMenuOpen] })
 
   return (
     <header className="navbar-container">
@@ -217,7 +229,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         </button>
 
         {/* FULL SCREEN MOBILE MENU */}
-        <div className={`mobile-nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+        <div className={`mobile-nav-menu ${isMobileMenuOpen ? 'active' : ''}`} ref={mobileMenuRef}>
           <nav className="nav-links mobile">
             {navItems.map((item, i) => {
               if (item.type === 'link') {
